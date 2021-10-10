@@ -1,0 +1,155 @@
+Starts w #!/bin/bash
+chmod +x
+
+
+rhyme@ip-172-31-25-250:~/Desktop$ username=Max
+rhyme@ip-172-31-25-250:~/Desktop$ echo username
+username
+rhyme@ip-172-31-25-250:~/Desktop$ echo $username
+Max
+rhyme@ip-172-31-25-250:~/Desktop$ vim goodmorning.sh
+rhyme@ip-172-31-25-250:~/Desktop$ chmod +x goo
+goodmorning.sh                   google-chrome.desktop
+google-chrome-incognito.desktop  
+rhyme@ip-172-31-25-250:~/Desktop$ chmod +x goo
+goodmorning.sh                   google-chrome.desktop
+google-chrome-incognito.desktop  
+rhyme@ip-172-31-25-250:~/Desktop$ chmod +x goodmorning.sh 
+rhyme@ip-172-31-25-250:~/Desktop$ sh goodmorning.sh 
+good morning i hope you having a great day!
+rhyme@ip-172-31-25-250:~/Desktop$ sh goodmorning.sh Max
+good morning Max i hope you having a great day!
+rhyme@ip-172-31-25-250:~/Desktop$ sh goodmorning.sh $1 $2 $3 .....
+good morning $1 i hope $2 you having a great day!
+
+Внутри скрипта создается новая оболочка. Нужно использовать переменные
+среды: export USERNAME=$username
+
+==============================
+#1/bin/bash
+
+# lets set some variables that will catch command line variables
+
+source=$1
+dest=$2
+
+tar -cvf backup.tar $source
+gzip backup.tar
+mv backup.tar.gz $dest
+==============================
+mkdir audiofiles
+cd /audiofiles
+touch file1 file2 file3 
+
+
+rhyme@ip-172-31-25-250:~/Desktop$ ./zipandbackup.sh audiofiles/ /tmp/
+audiofiles/
+audiofiles/file1
+audiofiles/file2
+audiofiles/file3
+rhyme@ip-172-31-25-250:~/Desktop$ ls -l /tmp/backup.tar.gz 
+-rw-rw-r-- 1 rhyme rhyme 178 Oct  5 20:07 /tmp/backup.tar.gz
+===============================
+
+Передача переменных в скрипт:
+#!/bin/bash
+read -p "Enter your desired username" username
+echo You have chosen $username as your username.
+
+
+Проверка условия (команда TEST)
+тестовые скбки [ % ] или [[ % ]]  - нужен пробел с каждой стороны
+
+if [ 6 -gt 5 ]; then
+        echo yes it is greater than 5
+else
+        echo no it is not greater than 5
+fi
+
+==============================
+Циклы:
+FOR
+#!/bin/bash
+for name in matthew mark luke
+do      
+        echo good morning $name
+done
+
+good morning matthew
+good morning mark
+good morning luke
+
+===
+#!/bin/bash
+count=1
+for file in `ls *.log`
+do
+        echo "Log file number $count: $file"
+        count=$((count+1))
+done
+===
+:~/Desktop$ vim loops.sh
+:~/Desktop$ chmod +x loops.sh
+:~/Desktop$ sh loops.sh 
+Log file number 1: file1.log
+Log file number 2: file2.log
+Log file number 3: file3.log
+============
+WHILE:
+
+#!/bin/bash
+while true
+do
+        touch file-`date +%s`.txt
+        sleep 3
+done
+===
+UNTIL
+#!/bin/bash
+until `ssh 192.168.1.100`
+do
+        echo "Still attempting.."
+done
+
+========================================================
+Проверить код выхода echo $?
+0 - успех
+
+rhyme@ip-172-31-21-45:~/Desktop$ vim zipandbackup.sh
+#!/bin/bash
+
+source=$1
+dest=$2
+
+function fileExists() {
+        if [ -f $dest/backup.tar.gz ]; then
+                echo this file already exist
+                exit 1
+        fi
+}
+
+function compressDir() {
+        tar -cvf backup.tar $source
+        gzip backup.tar
+        mv backup.tar.gz $dest
+}
+
+fileExists
+compressDir
+:wq!
+
+:~/Desktop$ chmod +x zipandbackup.sh
+:~/Desktop$ ./zipandbackup.sh newdir/ /tmp
+newdir/
+newdir/file1
+newdir/file2
+newdir/file3
+newdir/file4
+rhyme@ip-172-31-21-45:~/Desktop$ ./zipandbackup.sh newdir/ /tmp
+this file already exist
+rhyme@ip-172-31-21-45:~/Desktop$ 
+
+
+
+
+                               
