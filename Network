@@ -1,0 +1,14 @@
+ssh user@ip
+
+ssh-keygen - сгенерить пару ключей
+ssh-copy-id user@ip - скопировать открытую часть на  другой сервер
+/etc/ssh/sshd_config - конфигурация демона ssh сервера
+
+ifconfig (interface configurations) - настройки сетевых интерфейсов
+ping
+route -- настройки маршрутизации (таблица)
+route -n --
+
+/etc/resolv.conf - адреса DNS
+netstat
+host -- отрезолвить IP по DNS имени
