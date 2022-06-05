@@ -47,7 +47,14 @@ sort file | uniq - всегда, сначала сортируем, затем �
 sort file | uniq -с показать сколько строк-дублей
 sort file | uniq -d показать только дубли
 
-!!!wc
+!!!wc - reads input, generates newline count, word count, byte count
+wc filename
+17 34 236 filename = 17 lines 34 words 236 bytes
+wc -l filename = lines count
+wc -w filename = words count
+wc -c filename = bytes
+ls -l | grep drw | wc -l = количество папок
+grep keyword | wc -l = количство срок с keyword
 
 Examples:
 cat spider.txt | tr ' ' '\n' | sort | uniq -c | sort -nr | head
