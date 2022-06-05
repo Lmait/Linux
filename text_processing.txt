@@ -39,7 +39,15 @@ egrep -i "keyword|keyword2" filename
 grep keyword filename | awk '{print $1}' - показать первый столбец строк содержащих keyword
 grep keyword filename | awk '{print $1}' | cut -b1-3 = показать первые 3 символа первого столбца строк
 
+!!!sort/uniq - sorts in alphabetical order/filters duplicates
+sort filename - сортировать в алфавитном порядке.
+sort -r filename - сортировать в обратном порядке
+sort -k2 - сортировать по 2му столбцу
+sort file | uniq - всегда, сначала сортируем, затем удаляем дубли
+sort file | uniq -с показать сколько строк-дублей
+sort file | uniq -d показать только дубли
 
+!!!wc
 
 Examples:
 cat spider.txt | tr ' ' '\n' | sort | uniq -c | sort -nr | head
