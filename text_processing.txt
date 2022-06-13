@@ -56,6 +56,28 @@ wc -c filename = bytes
 ls -l | grep drw | wc -l = количество папок
 grep keyword | wc -l = количство срок с keyword
 
+!!!sed - substitute
+sed 's/Kenny/Lenny/g' filename - заменит Kenny на Lenny по всему файлу и выведет на экран,
+но не заменит внутри самого файла
+s = заменить
+g = global = по всему файлу
+
+-i = заинсертить изменения в исходный файл
+sed -i 's/Kenny/Lenny/g' filename = исправить и сохранить исходный файл
+sed 's/Kenny//g' filename = удалить Kenny (заменить пустотой)
+sed '/word/d' filename = удалить строки, в которых есть word
+sed '/^$/d' filename = удалить пустые строки
+sed '1d' filename = удалить первую строку
+sed '1,2d' filename = удалить 1 и 2 строку
+sed 's/\t/ /g' filename = заменить табуляцию (\t) на пробел ( )
+sed -n 12,18p filename = показать строки с 12 по 18
+sed 12,18d filename = показать все строки кроме строк с 12 по 18
+sed G filename = добавить пробел после каждой строки
+sed '8!s/Name/N/' filename заменить Name на N везде кроме 8й строки
+
+vim:
+:%s/Name/N - заменить Name на N
+
 Examples:
 cat spider.txt | tr ' ' '\n' | sort | uniq -c | sort -nr | head
 	tr = translate (заменить пробел на символ новой строки, перевоим слова на новую строку)
